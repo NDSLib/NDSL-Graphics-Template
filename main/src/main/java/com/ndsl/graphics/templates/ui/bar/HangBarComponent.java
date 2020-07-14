@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public interface HangBarComponent {
-    Rect getSizeRect();
+    Rect getSizeRect(Graphics g);
     void onDraw(Graphics g,Rect showingRect);
     String getComponentID();
     void onHover(Pos pos);

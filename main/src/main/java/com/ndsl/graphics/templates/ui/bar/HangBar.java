@@ -40,13 +40,13 @@ public class HangBar implements IDrawable {
 
     @Override
     public void onDraw(Graphics graphics, Rect rect) {
-        MouseHandle();
+        MouseHandle(graphics);
         drawBackGround(graphics,rect);
         Pos c_p=new Pos(r.left_up.x,r.left_up.y);
         for (HangBarComponent component : components){
             graphics.setColor(GraphicsMain.Default_Color);
-            component.onDraw(graphics,new Rect(c_p,new Pos(c_p.x+component.getSizeRect().getWidth(),c_p.y+component.getSizeRect().getHeight())));
-            c_p.shift(component.getSizeRect().getWidth(),0);
+            component.onDraw(graphics,new Rect(c_p,new Pos(c_p.x+component.getSizeRect(graphics).getWidth(),c_p.y+component.getSizeRect(graphics).getHeight())));
+            c_p.shift(component.getSizeRect(graphics).getWidth(),0);
         }
     }
 
@@ -67,11 +67,11 @@ public class HangBar implements IDrawable {
 
     public MouseInputListener listener;
 
-    public void MouseHandle(){
+    public void MouseHandle(Graphics g){
         Pos c_p=new Pos(r.left_up.x,r.left_up.y);
         for (HangBarComponent component : components){
             boolean isProcessed = false;
-            if (new Rect(c_p,new Pos(c_p.x+component.getSizeRect().getWidth(),c_p.y+component.getSizeRect().getHeight())).contain(listener.handler.now_mouse_pos)){
+            if (new Rect(c_p,new Pos(c_p.x+component.getSizeRect(g).getWidth(),c_p.y+component.getSizeRect(g).getHeight())).contain(listener.handler.now_mouse_pos)){
                 //Mouse Over
                 if(listener.isClicking()){
                     component.onClick(listener.handler.now_mouse_pos,listener.handler.Current_Mouse_Button);
@@ -87,7 +87,7 @@ public class HangBar implements IDrawable {
                     component.non_Hover(listener.handler.now_mouse_pos);
                 }
             }
-            c_p.shift(component.getSizeRect().getWidth(),0);
+            c_p.shift(component.getSizeRect(g).getWidth(),0);
         }
     }
 

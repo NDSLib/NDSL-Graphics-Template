@@ -1,5 +1,6 @@
 package com.ndsl.graphics.templates.ui.bar;
 
+import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.base.Drawable;
 import com.ndsl.graphics.display.drawable.base.DrawableUtil;
 import com.ndsl.graphics.display.drawable.non_sync.StringDrawable;
@@ -11,28 +12,28 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class StringHangComponent implements HangBarComponent {
-    public StringHangComponent(HangBar bar,String data,String hang_id,Rect r){
-        this(data, hang_id, r);
+    public StringHangComponent(HangBar bar,String data,String hang_id,Pos left_up,Display display){
+        this(data, hang_id, left_up,display);
         bar.addComp(this);
     }
-    public Rect r;
+    public Pos r;
     public String data;
     public String hang_id;
     public Drawable SD;
-    public StringHangComponent(String data,String hang_id,Rect r){
-        this.r=r;
+    public StringHangComponent(String data, String hang_id, Pos left_up, Display display){
+        this.r=left_up;
         this.data=data;
         this.hang_id=hang_id;
-        genSD();
+        genSD(display.getGraphic());
     }
 
-    public void genSD(){
-        this.SD=new Drawable(new StringDrawable(data,r,"hang_"+hang_id+"_SD"));
+    public void genSD(Graphics g){
+        this.SD=new Drawable(new StringDrawable(data,getSizeRect(g),"hang_"+hang_id+"_SD"));
     }
 
     @Override
-    public Rect getSizeRect() {
-        return r;
+    public Rect getSizeRect(Graphics g) {
+        return StringDrawUtil.getStringBounds(g,g.getFont(),data).shift(r.x,r.y);
     }
 
     @Override

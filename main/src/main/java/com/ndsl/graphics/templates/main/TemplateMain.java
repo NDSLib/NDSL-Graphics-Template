@@ -2,18 +2,20 @@ package com.ndsl.graphics.templates.main;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.base.Drawable;
+import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import com.ndsl.graphics.templates.ui.bar.HangBar;
 import com.ndsl.graphics.templates.ui.bar.StringHangComponent;
 import com.ndsl.graphics.templates.util.FontCache;
+import com.ndsl.graphics.templates.util.StringDrawUtil;
 
 import java.awt.*;
 import java.util.Random;
 
 public class TemplateMain {
     public static void main(String[] args) {
-//        new TemplateMain().main_test();
-        new TemplateMain().getFontTest();
+        new TemplateMain().main_test();
+//        new TemplateMain().getFontTest();
     }
 
 
@@ -22,7 +24,7 @@ public class TemplateMain {
         display.setDebugMode(true);
         HangBar hangBar=new HangBar("test_hang",new Rect(100,100,300,200),display);
         hangBar.setBackGroundColor(new Color(255, 0, 0, 255));
-        StringHangComponent SHC=new StringHangComponent(hangBar,"data","hang_id",new Rect(0,0,100,100));
+        StringHangComponent SHC=new StringHangComponent(hangBar,"data","hang_id",new Pos(0,0),display);
         display.addDrawable(new Drawable(hangBar));
         while(true){
             if(display.limiter.onUpdate()) display.update();
