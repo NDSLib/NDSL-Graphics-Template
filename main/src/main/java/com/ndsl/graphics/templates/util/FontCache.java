@@ -3,7 +3,7 @@ package com.ndsl.graphics.templates.util;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated
 public class FontCache {
     public static final FontCache INSTANCE = new FontCache();
 
@@ -29,13 +29,18 @@ public class FontCache {
     public Map<String,Map<Integer,Font>> font_cache = new HashMap<String, Map<Integer, Font>>();
 
     public Font getFont(String font_name,Integer size) {
-        if (font_cache.containsKey(font_name)){
+        /*if (font_cache.containsKey(font_name)){
             if(font_cache.get(font_name).containsKey(size)){
                 return font_cache.get(font_name).get(size);
             }
         }
         setCache(genFont(font_name, size));
-        return font_cache.get(font_name).get(size);
+        return font_cache.get(font_name).get(size);*/
+        return new Font(font_name,0,size);
+    }
+
+    public Font getFont(Integer size){
+        return getFont(Default_Font_String,size);
     }
 
     public void setCache(Font font){

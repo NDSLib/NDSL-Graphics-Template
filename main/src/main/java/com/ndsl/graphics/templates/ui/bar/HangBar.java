@@ -1,5 +1,6 @@
 package com.ndsl.graphics.templates.ui.bar;
 
+import com.ndsl.graphics.GraphicsMain;
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.IDrawable;
 import com.ndsl.graphics.display.drawable.non_sync.ui.MouseInputListener;
@@ -39,8 +40,11 @@ public class HangBar implements IDrawable {
 
     @Override
     public void onDraw(Graphics graphics, Rect rect) {
+        MouseHandle();
+        drawBackGround(graphics,rect);
         Pos c_p=new Pos(r.left_up.x,r.left_up.y);
         for (HangBarComponent component : components){
+            graphics.setColor(GraphicsMain.Default_Color);
             component.onDraw(graphics,new Rect(c_p,new Pos(c_p.x+component.getSizeRect().getWidth(),c_p.y+component.getSizeRect().getHeight())));
             c_p.shift(component.getSizeRect().getWidth(),0);
         }
@@ -62,4 +66,41 @@ public class HangBar implements IDrawable {
     }
 
     public MouseInputListener listener;
+
+    public void MouseHandle(){
+        Pos c_p=new Pos(r.left_up.x,r.left_up.y);
+        for (HangBarComponent component : components){
+            boolean isProcessed = false;
+            if (new Rect(c_p,new Pos(c_p.x+component.getSizeRect().getWidth(),c_p.y+component.getSizeRect().getHeight())).contain(listener.handler.now_mouse_pos)){
+                //Mouse Over
+                if(listener.isClicking()){
+                    component.onClick(listener.handler.now_mouse_pos,listener.handler.Current_Mouse_Button);
+                } else{
+                    component.onHover(listener.handler.now_mouse_pos);
+                }
+                isProcessed=true;
+            }
+            if(!isProcessed){
+                if(listener.handler.isClicking){
+                    component.non_Click(listener.handler.now_mouse_pos,listener.handler.Current_Mouse_Button);
+                } else{
+                    component.non_Hover(listener.handler.now_mouse_pos);
+                }
+            }
+            c_p.shift(component.getSizeRect().getWidth(),0);
+        }
+    }
+
+    public Color backGroundColor=null;
+
+    public void drawBackGround(Graphics g,Rect r){
+        if(backGroundColor==null) return;
+        g.setColor(backGroundColor);
+        g.fillRect(r.left_up.x,r.left_up.y,r.getWidth(),r.getHeight());
+    }
+
+    public HangBar setBackGroundColor(Color r){
+        this.backGroundColor=r;
+        return this;
+    }
 }

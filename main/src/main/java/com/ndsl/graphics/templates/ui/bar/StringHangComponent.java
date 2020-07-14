@@ -3,6 +3,7 @@ package com.ndsl.graphics.templates.ui.bar;
 import com.ndsl.graphics.display.drawable.base.Drawable;
 import com.ndsl.graphics.display.drawable.base.DrawableUtil;
 import com.ndsl.graphics.display.drawable.non_sync.StringDrawable;
+import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import com.ndsl.graphics.templates.util.StringDrawUtil;
 
@@ -45,12 +46,22 @@ public class StringHangComponent implements HangBarComponent {
     }
 
     @Override
-    public void onHover(MouseEvent e) {
+    public void onHover(Pos pos) {
         data="onHover";
     }
 
     @Override
-    public void onClick(MouseEvent e) {
+    public void onClick(Pos pos, int button) {
         data="onClick";
+    }
+
+    @Override
+    public void non_Hover(Pos pos) {
+        data="non Hover";
+    }
+
+    @Override
+    public void non_Click(Pos pos, int button) {
+        data="non Click";
     }
 }
