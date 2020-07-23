@@ -2,14 +2,12 @@ package com.ndsl.graphics.templates.ui.bar;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.base.Drawable;
-import com.ndsl.graphics.display.drawable.base.DrawableUtil;
 import com.ndsl.graphics.display.drawable.non_sync.StringDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import com.ndsl.graphics.templates.util.StringDrawUtil;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class StringHangComponent implements HangBarComponent {
     public StringHangComponent(HangBar bar,String data,String hang_id,Pos left_up,Display display){
@@ -31,9 +29,15 @@ public class StringHangComponent implements HangBarComponent {
         this.SD=new Drawable(new StringDrawable(data,getSizeRect(g),"hang_"+hang_id+"_SD"));
     }
 
+    public Rect latest_r;
     @Override
     public Rect getSizeRect(Graphics g) {
-        return StringDrawUtil.getStringBounds(g,g.getFont(),data).shift(r.x,r.y);
+        latest_r=StringDrawUtil.getStringBounds(g,g.getFont(),data).shift(r.x,r.y);
+        return latest_r;
+    }
+
+    public Rect getSizeRect(){
+        return latest_r;
     }
 
     @Override
@@ -54,6 +58,7 @@ public class StringHangComponent implements HangBarComponent {
     @Override
     public void onClick(Pos pos, int button) {
         data="onClick";
+        onClick(button);
     }
 
     @Override
@@ -64,5 +69,9 @@ public class StringHangComponent implements HangBarComponent {
     @Override
     public void non_Click(Pos pos, int button) {
         data="non Click";
+    }
+
+    protected void onClick(int button){
+        //SomeThing
     }
 }
