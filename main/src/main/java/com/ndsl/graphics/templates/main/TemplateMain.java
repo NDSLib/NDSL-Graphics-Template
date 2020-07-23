@@ -73,8 +73,8 @@ public class TemplateMain {
 
     public void EasingTest(){
         Display display = new Display("NDSL/Templates",3,new Rect(100,100,1020,500));
+        display.setBackground(new Color(110, 110, 110));
         Color c=new Color(53, 191, 255, 221);
-
 
         SyncedStringDrawable EaseInSine_s=new SyncedStringDrawable("EaseInSine",new Rect(10,120,20,140),"EaseInSine_s");
         SyncedRectDrawable EaseInSine = new SyncedRectDrawable(new Rect(0,140,20,160),c,"EaseInSine");
@@ -85,12 +85,18 @@ public class TemplateMain {
         SyncedRectDrawable EaseOutSine = new SyncedRectDrawable(new Rect(0,180,20,200),c,"EaseOutSine");
         display.addDrawable(new Drawable(EaseOutSine));
         display.addDrawable(new Drawable(EaseOutSine_s));
+
+        SyncedStringDrawable EaseInOutSine_s=new SyncedStringDrawable("EaseInOutSine",new Rect(10,200,20,220),"EaseInOutSine_s");
+        SyncedRectDrawable EaseInOutSine = new SyncedRectDrawable(new Rect(0,220,20,240),c,"EaseInOutSine");
+        display.addDrawable(new Drawable(EaseInOutSine));
+        display.addDrawable(new Drawable(EaseInOutSine_s));
         double count=0.0;
         while(true){
             EaseInSine.setRect(new Rect(0,140,20,160).shift((int) (Easing.EaseInSine(count)*900),0));
             EaseOutSine.setRect(new Rect(0,180,20,200).shift((int) (Easing.EaseOutSine(count)*900),0));
+            EaseInOutSine.setRect(new Rect(0,220,20,240).shift((int) (Easing.EaseInOutSine(count)*900),0));
             if(display.limiter.onUpdate()) display.update();
-            count=display.limiter.FPSCount*0.005;
+            count=display.limiter.FPSCount*0.003;
             count=count%1;
         }
     }
