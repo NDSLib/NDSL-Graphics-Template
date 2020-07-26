@@ -12,6 +12,7 @@ import com.ndsl.graphics.pos.Rect;
 import com.ndsl.graphics.templates.audio.AudioPlayerBar;
 import com.ndsl.graphics.templates.ui.bar.HangBar;
 import com.ndsl.graphics.templates.ui.bar.StringHangComponent;
+import com.ndsl.graphics.templates.ui.inputbox.InputBox;
 import com.ndsl.graphics.templates.util.Easing;
 import com.ndsl.graphics.templates.util.FontCache;
 import com.ndsl.graphics.templates.util.StringDrawUtil;
@@ -25,7 +26,8 @@ public class TemplateMain {
     public static void main(String[] args) throws IOException, FileNotSupportedException {
 //        new TemplateMain().main_test();
 //        new TemplateMain().getFontTest();
-        new TemplateMain().EasingTest();
+//        new TemplateMain().EasingTest();
+        new TemplateMain().inputBoxTest();
     }
 
     public void main_test(){
@@ -98,6 +100,15 @@ public class TemplateMain {
             if(display.limiter.onUpdate()) display.update();
             count=display.limiter.FPSCount*0.003;
             count=count%1;
+        }
+    }
+
+    public void inputBoxTest(){
+        Display display = new Display("NDSL/Templates",3,new Rect(100,100,500,500));
+        InputBox inputBox=new InputBox(display,"input",new Rect(100,100,200,120));
+        display.addDrawable(new Drawable(inputBox));
+        while(true){
+            if(display.limiter.onUpdate()) display.update();
         }
     }
 }
