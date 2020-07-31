@@ -3,8 +3,6 @@ package com.ndsl.graphics.templates.main;
 import com.ndsl.al.bun133.clip.FileNotSupportedException;
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.base.Drawable;
-import com.ndsl.graphics.display.drawable.non_sync.RectDrawable;
-import com.ndsl.graphics.display.drawable.non_sync.StringDrawable;
 import com.ndsl.graphics.display.drawable.synced.SyncedRectDrawable;
 import com.ndsl.graphics.display.drawable.synced.SyncedStringDrawable;
 import com.ndsl.graphics.pos.Pos;
@@ -12,12 +10,14 @@ import com.ndsl.graphics.pos.Rect;
 import com.ndsl.graphics.templates.audio.AudioPlayerBar;
 import com.ndsl.graphics.templates.ui.bar.HangBar;
 import com.ndsl.graphics.templates.ui.bar.StringHangComponent;
+import com.ndsl.graphics.templates.ui.button.Button;
+import com.ndsl.graphics.templates.ui.button.ClickListener;
 import com.ndsl.graphics.templates.ui.inputbox.InputBox;
 import com.ndsl.graphics.templates.util.Easing;
 import com.ndsl.graphics.templates.util.FontCache;
-import com.ndsl.graphics.templates.util.StringDrawUtil;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -27,7 +27,7 @@ public class TemplateMain {
 //        new TemplateMain().main_test();
 //        new TemplateMain().getFontTest();
 //        new TemplateMain().EasingTest();
-        new TemplateMain().inputBoxTest();
+        new TemplateMain().ButtonTest();
     }
 
     public void main_test(){
@@ -110,5 +110,24 @@ public class TemplateMain {
         while(true){
             if(display.limiter.onUpdate()) display.update();
         }
+    }
+
+    public void ButtonTest(){
+        Display display = new Display("NDSL/Templates",3,new Rect(100,100,500,500));
+
+        Rect button_rect = new Rect(100,100,200,150);
+        SyncedStringDrawable ssd=new SyncedStringDrawable("Non Clicked.",button_rect,"button_id");
+        Button button=new Button(display,button_rect,"button",ssd);
+        final int[] counter = {0};
+        ClickListener testListener=new ClickListener(){
+            public void onClick(Button button) {
+            counter[0]++;
+            ssd.setText("Clicked!:"+ counter[0]);
+            }
+        };
+
+        button.addListener(testListener);
+        display.addDrawable(new Drawable(button));
+        while(true){if(display.limiter.onUpdate()) display.update();}
     }
 }

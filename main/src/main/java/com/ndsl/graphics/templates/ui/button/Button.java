@@ -29,6 +29,7 @@ public class Button implements IDrawable {
 
     @Override
     public void onDraw(Graphics graphics, Rect rect) {
+//        System.out.println("Draw");
         drawBackground(graphics,rect);
         graphics.setColor(GraphicsMain.Default_Color);
         OnButton.onDraw(graphics,rect);
