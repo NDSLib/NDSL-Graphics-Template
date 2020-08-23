@@ -6,6 +6,7 @@ import com.ndsl.graphics.pos.Rect;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+@Deprecated
 public interface HangBarComponent {
     Rect getSizeRect(Graphics g);
     void onDraw(Graphics g,Rect showingRect);

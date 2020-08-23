@@ -5,17 +5,17 @@ import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.base.Drawable;
 import com.ndsl.graphics.display.drawable.synced.SyncedRectDrawable;
 import com.ndsl.graphics.display.drawable.synced.SyncedStringDrawable;
-import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import com.ndsl.graphics.templates.audio.AudioPlayerBar;
-import com.ndsl.graphics.templates.debug.MouseInputDebug;
-import com.ndsl.graphics.templates.ui.bar.HangBar;
-import com.ndsl.graphics.templates.ui.bar.StringHangComponent;
+import com.ndsl.graphics.templates.ui.bar.Hanger;
+import com.ndsl.graphics.templates.ui.bar.StringButtonHangable;
 import com.ndsl.graphics.templates.ui.button.Button;
 import com.ndsl.graphics.templates.ui.button.ClickListener;
 import com.ndsl.graphics.templates.ui.inputbox.InputBox;
 import com.ndsl.graphics.templates.util.Easing;
 import com.ndsl.graphics.templates.util.FontCache;
+import com.ndsl.graphics.templates.util.NullRunnable;
+import com.ndsl.graphics.templates.util.SoutRunnable;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -23,24 +23,26 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+@SuppressWarnings("ALL")
 public class TemplateMain {
     public static void main(String[] args) throws IOException, FileNotSupportedException {
 //        new TemplateMain().main_test();
 //        new TemplateMain().getFontTest();
 //        new TemplateMain().EasingTest();
-        new TemplateMain().ButtonTest();
+//        new TemplateMain().ButtonTest();
+        new TemplateMain().hangTest();
     }
 
     public void main_test(){
-        Display display=new Display("NDSL/Templates",3,new Rect(100,100,1000,1000));
-        display.setDebugMode(true);
-        HangBar hangBar=new HangBar("test_hang",new Rect(100,100,300,200),display);
-        hangBar.setBackGroundColor(new Color(64, 59, 59, 255));
-        StringHangComponent SHC=new StringHangComponent(hangBar,"data","hang_id",new Pos(0,0),display);
-        display.addDrawable(new Drawable(hangBar));
-        while(true){
-            if(display.limiter.onUpdate()) display.update();
-        }
+//        Display display=new Display("NDSL/Templates",3,new Rect(100,100,1000,1000));
+//        display.setDebugMode(true);
+//        HangBar hangBar=new HangBar("test_hang",new Rect(100,100,300,200),display);
+//        hangBar.setBackGroundColor(new Color(64, 59, 59, 255));
+//        StringHangComponent SHC=new StringHangComponent(hangBar,"data","hang_id",new Pos(0,0),display);
+//        display.addDrawable(new Drawable(hangBar));
+//        while(true){
+//            if(display.limiter.onUpdate()) display.update();
+//        }
     }
     //DO NOT USE Cache!!!!!!!
     //It's not a true Cache!
@@ -130,6 +132,21 @@ public class TemplateMain {
         button.addListener(testListener);
         display.addDrawable(new Drawable(button));
 //        display.mouseInputHandler.register.add(new MouseInputDebug());
+        while(true){if(display.limiter.onUpdate()) display.update();}
+    }
+
+    public void hangTest(){
+        Display display = new Display("NDSL/Templates",3,new Rect(100,100,500,500));
+
+        display.setDebugMode(true);
+
+        Hanger hanger = new Hanger("hanger",new Rect(0,100,500,200));
+        StringButtonHangable hangable = new StringButtonHangable("data",12,display.mouseInputHandler,new Rect(0,0,100,100),"hang_string",new SoutRunnable("YAHA"));
+        StringButtonHangable hangable_ = new StringButtonHangable("data",12,display.mouseInputHandler,new Rect(0,0,100,100),"hang_string",new SoutRunnable("YAHA2"));
+        hanger.add(hangable);
+        hanger.add(hangable_);
+        display.addDrawable(new Drawable(hanger));
+
         while(true){if(display.limiter.onUpdate()) display.update();}
     }
 }

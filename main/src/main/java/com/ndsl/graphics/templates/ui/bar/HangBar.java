@@ -11,6 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class HangBar implements IDrawable {
     public String id;
     public Rect r;

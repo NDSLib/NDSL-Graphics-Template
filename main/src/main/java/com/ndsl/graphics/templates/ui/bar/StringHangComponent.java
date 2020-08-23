@@ -9,6 +9,7 @@ import com.ndsl.graphics.templates.util.StringDrawUtil;
 
 import java.awt.*;
 
+@Deprecated
 public class StringHangComponent implements HangBarComponent {
     public StringHangComponent(HangBar bar,String data,String hang_id,Pos left_up,Display display){
         this(data, hang_id, left_up,display);

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Deprecated
 public class BaseHangComponent extends StringHangComponent{
     public HangList hangs;
     public BaseHangComponent(HangBar bar, String data, String hang_id, Pos left_up, Display display,HangList hangs) {
