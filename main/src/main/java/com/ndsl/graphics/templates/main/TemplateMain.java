@@ -12,9 +12,9 @@ import com.ndsl.graphics.templates.ui.bar.StringButtonHangable;
 import com.ndsl.graphics.templates.ui.button.Button;
 import com.ndsl.graphics.templates.ui.button.ClickListener;
 import com.ndsl.graphics.templates.ui.inputbox.InputBox;
+import com.ndsl.graphics.templates.ui.progressbar.ProgressBar;
 import com.ndsl.graphics.templates.util.Easing;
 import com.ndsl.graphics.templates.util.FontCache;
-import com.ndsl.graphics.templates.util.NullRunnable;
 import com.ndsl.graphics.templates.util.SoutRunnable;
 
 import java.awt.Color;
@@ -30,7 +30,8 @@ public class TemplateMain {
 //        new TemplateMain().getFontTest();
 //        new TemplateMain().EasingTest();
 //        new TemplateMain().ButtonTest();
-        new TemplateMain().hangTest();
+//        new TemplateMain().hangTest();
+        new TemplateMain().proggressBarTest();
     }
 
     public void main_test(){
@@ -137,7 +138,6 @@ public class TemplateMain {
 
     public void hangTest(){
         Display display = new Display("NDSL/Templates",3,new Rect(100,100,500,500));
-
         display.setDebugMode(true);
 
         Hanger hanger = new Hanger("hanger",new Rect(0,100,500,200));
@@ -148,5 +148,13 @@ public class TemplateMain {
         display.addDrawable(new Drawable(hanger));
 
         while(true){if(display.limiter.onUpdate()) display.update();}
+    }
+
+    public void proggressBarTest(){
+        Display display = new Display("NDSL/Templates",3,new Rect(100,100,500,500));
+        ProgressBar bar=new ProgressBar(new Rect(0,100,100,120),"bar");
+        bar.setProgress(50.0);
+        display.addDrawable(new Drawable(bar));
+        while(true){if(display.limiter.onUpdate())display.update();}
     }
 }
