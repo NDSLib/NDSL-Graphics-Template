@@ -8,6 +8,7 @@ import com.ndsl.graphics.display.drawable.synced.SyncedStringDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import com.ndsl.graphics.templates.audio.AudioPlayerBar;
+import com.ndsl.graphics.templates.debug.MouseInputDebug;
 import com.ndsl.graphics.templates.ui.bar.HangBar;
 import com.ndsl.graphics.templates.ui.bar.StringHangComponent;
 import com.ndsl.graphics.templates.ui.button.Button;
@@ -128,6 +129,7 @@ public class TemplateMain {
 
         button.addListener(testListener);
         display.addDrawable(new Drawable(button));
+//        display.mouseInputHandler.register.add(new MouseInputDebug());
         while(true){if(display.limiter.onUpdate()) display.update();}
     }
 }
